@@ -1,0 +1,204 @@
+{
+    "designSystem": {
+        "name": "Maitri Pink Theme",
+        "description": "An elegant, wellness-focused design system characterized by soft pink tones, elegant serif typography for headings combined with clean sans-serif body text, heavily rounded corners for images and cards, and floating statistic badges.",
+        "tokens": {
+            "colors": {
+                "background": {
+                    "primary": "#FFF5F8",
+                    "secondary": "#5C3D46",
+                    "white": "#FFFFFF"
+                },
+                "text": {
+                    "primary": "#2C1A1D",
+                    "secondary": "#5C4A4D",
+                    "light": "#FFFFFF",
+                    "onAccent": "#FFFFFF"
+                },
+                "brand": {
+                    "primary": "#E87A86",
+                    "primaryHover": "#D66874",
+                    "secondary": "#FDE0E4",
+                    "accentYellow": "#FFF3CD",
+                    "accentPeach": "#FFDAB9"
+                },
+                "border": {
+                    "light": "#F0E1E4",
+                    "dark": "#4A2F37"
+                }
+            },
+            "typography": {
+                "fonts": {
+                    "heading": "'Playfair Display', 'Lora', serif",
+                    "body": "'Inter', 'Helvetica Neue', sans-serif"
+                },
+                "sizes": {
+                    "h1": {
+                        "fontSize": "4rem",
+                        "lineHeight": "1.1",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.02em"
+                    },
+                    "h2": {
+                        "fontSize": "3rem",
+                        "lineHeight": "1.2",
+                        "fontWeight": "600",
+                        "letterSpacing": "-0.01em"
+                    },
+                    "h3": {
+                        "fontSize": "2rem",
+                        "lineHeight": "1.3",
+                        "fontWeight": "500"
+                    },
+                    "bodyLarge": {
+                        "fontSize": "1.125rem",
+                        "lineHeight": "1.6",
+                        "fontWeight": "400"
+                    },
+                    "bodyRegular": {
+                        "fontSize": "1rem",
+                        "lineHeight": "1.5",
+                        "fontWeight": "400"
+                    },
+                    "bodySmall": {
+                        "fontSize": "0.875rem",
+                        "lineHeight": "1.5",
+                        "fontWeight": "500"
+                    },
+                    "statHuge": {
+                        "fontSize": "3.5rem",
+                        "lineHeight": "1",
+                        "fontWeight": "400"
+                    }
+                }
+            },
+            "spacing": {
+                "xs": "0.5rem",
+                "sm": "1rem",
+                "md": "1.5rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "2xl": "4rem",
+                "section": "6rem"
+            },
+            "borderRadius": {
+                "sm": "8px",
+                "md": "16px",
+                "lg": "24px",
+                "xl": "32px",
+                "round": "50%"
+            },
+            "shadows": {
+                "sm": "0 4px 6px -1px rgba(92, 61, 70, 0.05), 0 2px 4px -1px rgba(92, 61, 70, 0.03)",
+                "md": "0 10px 15px -3px rgba(92, 61, 70, 0.08), 0 4px 6px -2px rgba(92, 61, 70, 0.04)",
+                "floating": "0 20px 25px -5px rgba(92, 61, 70, 0.1), 0 10px 10px -5px rgba(92, 61, 70, 0.04)"
+            }
+        },
+        "components": {
+            "buttons": {
+                "primary": {
+                    "backgroundColor": "colors.brand.primary",
+                    "color": "colors.text.onAccent",
+                    "borderRadius": "9999px",
+                    "padding": "12px 28px",
+                    "fontFamily": "typography.fonts.body",
+                    "fontWeight": "600",
+                    "display": "flex",
+                    "alignItems": "center",
+                    "gap": "8px",
+                    "iconElement": {
+                        "type": "circle",
+                        "backgroundColor": "colors.background.white",
+                        "color": "colors.brand.primary",
+                        "icon": "arrow-up-right"
+                    }
+                },
+                "iconCircular": {
+                    "width": "48px",
+                    "height": "48px",
+                    "borderRadius": "50%",
+                    "border": "1px solid colors.border.dark",
+                    "display": "flex",
+                    "justifyContent": "center",
+                    "alignItems": "center",
+                    "color": "colors.text.primary"
+                }
+            },
+            "cards": {
+                "imageCard": {
+                    "borderRadius": "borderRadius.lg",
+                    "overflow": "hidden",
+                    "boxShadow": "none"
+                },
+                "statCardPrimary": {
+                    "backgroundColor": "colors.brand.accentYellow",
+                    "borderRadius": "borderRadius.lg",
+                    "padding": "spacing.lg",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "justifyContent": "center",
+                    "minHeight": "200px"
+                },
+                "statCardWhite": {
+                    "backgroundColor": "colors.background.white",
+                    "borderRadius": "borderRadius.lg",
+                    "padding": "spacing.lg",
+                    "boxShadow": "shadows.sm",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "justifyContent": "center"
+                },
+                "floatingBadge": {
+                    "backgroundColor": "colors.brand.accentYellow",
+                    "borderRadius": "borderRadius.round",
+                    "width": "120px",
+                    "height": "120px",
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "justifyContent": "center",
+                    "alignItems": "center",
+                    "position": "absolute",
+                    "bottom": "-20px",
+                    "right": "-20px"
+                }
+            },
+            "avatars": {
+                "group": {
+                    "display": "flex",
+                    "imageConfig": {
+                        "width": "40px",
+                        "height": "40px",
+                        "borderRadius": "50%",
+                        "border": "2px solid colors.background.primary",
+                        "marginLeft": "-10px"
+                    },
+                    "addButton": {
+                        "backgroundColor": "colors.brand.accentYellow",
+                        "color": "colors.text.primary"
+                    }
+                }
+            },
+            "decorative": {
+                "squiggleLine": {
+                    "type": "svg",
+                    "stroke": "colors.brand.primary",
+                    "strokeWidth": "2",
+                    "pattern": "heartbeat/pulse shape"
+                }
+            }
+        },
+        "layout": {
+            "bentoGrid": {
+                "description": "Use an asymmetrical grid (bento box style) for feature showcases. Mix square stat cards with rectangular image cards and text blocks.",
+                "gap": "spacing.lg"
+            }
+        },
+        "patternsToReplicate": {
+            "typographyContrast": "Pair very large, elegant serif headings (Playfair Display) with small, readable sans-serif text (Inter).",
+            "overlapElements": "Create depth by letting circular badges or text slightly overlap adjacent containers or images.",
+            "buttonWithArrow": "Primary action buttons often feature the text on the left and a circular white background for the arrow icon on the right, housed within a pill-shaped button.",
+            "heartbeatMotif": "Incorporate subtle heartbeat/pulse squiggle SVGs as decorative dividers or background elements.",
+            "darkSections": "Use dark background sections (e.g., #5C3D46) with white text to create visual breaks, utilizing the same rounded white and yellow stat cards on top of it for contrast."
+        }
+    }
+}

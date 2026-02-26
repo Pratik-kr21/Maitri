@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@500;600&display=swap');
+
+:root {
+  --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-serif: 'Playfair Display', Lora, serif;
+
+  --color-bg-primary: #FFF5F8;
+  --color-bg-secondary: #5C3D46;
+  --color-white: #FFFFFF;
+
+  --color-text-primary: #2C1A1D;
+  --color-text-secondary: #5C4A4D;
+  --color-text-light: #FFFFFF;
+  --color-text-on-accent: #FFFFFF;
+
+  --color-brand-primary: #E87A86;
+  --color-brand-hover: #D66874;
+  --color-brand-secondary: #FDE0E4;
+  --color-accent-yellow: #FFF3CD;
+  --color-accent-peach: #FFDAB9;
+
+  --color-border-light: #F0E1E4;
+  --color-border-dark: #4A2F37;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Base float — all floating elements */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Gentle drift — secondary elements */
+@keyframes drift {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+
+  66% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+/* Pulse glow — active/selected states */
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(232, 122, 134, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(232, 122, 134, 0);
+  }
+}
+
+/* Heartbeat line — decorative SVG dividers */
+@keyframes heartbeat {
+
+  0%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dashoffset: -20;
+  }
+}
+
+/* Page / card entrance */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+  stroke-dasharray: 8 4;
+}
+
+.animate-floatUp {
+  animation: floatUp 0.4s ease-out forwards;
+}
+
+/* Utility to add delays dynamically if needed via inline style animationDelay, or small helpers */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
