@@ -1,7 +1,3 @@
-# Common node_modules
-node_modules/
-**/node_modules/
-
 # Logs
 logs
 *.log
@@ -11,18 +7,15 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Build directories
-dist/
-dist-ssr/
-build/
-**/dist/
-**/build/
-
-# Environment variables
-.env
-.env.local
-.env.*.local
+node_modules
+dist
+dist-ssr
 *.local
+
+# Secrets
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -34,7 +27,3 @@ build/
 *.njsproj
 *.sln
 *.sw?
-
-# OS files
-Thumbs.db
-Desktop.ini

@@ -28,9 +28,24 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/maitri';
 
-mongoose.connect(MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+let isConnected;
+
+const connectDB = async () => {
+    if (isConnected) {
+        console.log('Using existing database connection');
+        return;
+    }
+    try {
+        const db = await mongoose.connect(MONGODB_URI);
+        isConnected = db.connections[0].readyState;
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('MongoDB connection error:', error);
+    }
+};
+
+// Vercel execution starts here, ensure connection is made
+connectDB();
 
 // Provide the app to Vercel
 module.exports = app;
