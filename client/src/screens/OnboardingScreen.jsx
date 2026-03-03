@@ -20,8 +20,9 @@ const OnboardingScreen = ({ onNavigate }) => {
                 setLoading(true);
                 const token = localStorage.getItem('token');
                 const config = { headers: { Authorization: `Bearer ${token}` } };
+                const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
-                await axios.post('http://localhost:5000/api/cycles/start', {
+                await axios.post(`${API_URL}/api/cycles/start`, {
                     startDate: new Date(startDate)
                 }, config);
 

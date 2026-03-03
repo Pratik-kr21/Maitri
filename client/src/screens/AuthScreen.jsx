@@ -22,7 +22,7 @@ const AuthScreen = ({ onNavigate }) => {
             setError(null);
 
             if (isSignUp) {
-                const res = await axios.post('http://localhost:5000/api/auth/register', {
+                const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/register`, {
                     username,
                     email,
                     password,
@@ -32,7 +32,7 @@ const AuthScreen = ({ onNavigate }) => {
                 localStorage.setItem('token', res.data.token);
                 onNavigate('onboarding');
             } else {
-                const res = await axios.post('http://localhost:5000/api/auth/login', {
+                const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/auth/login`, {
                     email,
                     password
                 });

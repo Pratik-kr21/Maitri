@@ -34,7 +34,7 @@ const HomeScreen = () => {
                 const config = { headers: { Authorization: `Bearer ${token}` } };
 
                 // Get Cycles
-                const res = await axios.get('http://localhost:5000/api/cycles', config);
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/cycles`, config);
                 if (res.data && res.data.length > 0) {
                     setActiveCycle(res.data[0]);
                 }
@@ -74,7 +74,7 @@ const HomeScreen = () => {
             const token = localStorage.getItem('token');
             const config = { headers: { Authorization: `Bearer ${token}` } };
 
-            await axios.post('http://localhost:5000/api/cycles/log', {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/cycles/log`, {
                 cycleId: activeCycle ? activeCycle._id : null,
                 logDate: new Date(),
                 energyLevel: energy || 'medium',

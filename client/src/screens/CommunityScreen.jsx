@@ -36,11 +36,11 @@ const CommunityScreen = () => {
     useEffect(() => {
         const fetchCommunity = async () => {
             try {
-                const cRes = await axios.get('http://localhost:5000/api/community/circles');
+                const cRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/community/circles`);
                 setCircles(cRes.data);
                 if (cRes.data.length > 0) setSelectedCircle(cRes.data[0]._id);
 
-                const pRes = await axios.get('http://localhost:5000/api/community/posts');
+                const pRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/community/posts`);
                 setPosts(pRes.data);
             } catch (err) {
                 console.error(err);
@@ -62,7 +62,7 @@ const CommunityScreen = () => {
         if (!newPostContent.trim()) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post('http://localhost:5000/api/community/posts', {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/community/posts`, {
                 circleId: selectedCircle,
                 content: newPostContent,
                 postType: 'experience'

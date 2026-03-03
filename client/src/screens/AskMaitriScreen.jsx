@@ -28,7 +28,7 @@ const AskMaitriScreen = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post('http://localhost:5000/api/ai/ask', {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/ai/ask`, {
                 question: messageText,
                 context: "Use plain English. Be supportive and concise."
             }, {
