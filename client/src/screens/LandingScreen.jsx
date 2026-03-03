@@ -10,7 +10,7 @@ const LandingScreen = ({ onNavigate }) => (
             {/* Hero */}
             <div className="px-6 relative mb-16 lg:mb-0 lg:flex-1">
                 <HeartbeatDivider />
-                <h1 className="text-5xl lg:text-7xl font-serif text-[var(--color-text-primary)] leading-tight tracking-tight mt-6 mb-4 animate-floatUp" style={{ animationDelay: '100ms', opacity: 0 }}>
+                <h1 className="text-4xl lg:text-5xl font-serif text-[var(--color-text-primary)] leading-tight tracking-tight mt-6 mb-4 animate-floatUp" style={{ animationDelay: '100ms', opacity: 0 }}>
                     Your cycle, explained.<br />Finally.
                 </h1>
                 <p className="text-lg lg:text-xl text-[var(--color-text-secondary)] mb-8 max-w-sm animate-floatUp" style={{ animationDelay: '200ms', opacity: 0 }}>
@@ -37,18 +37,18 @@ const LandingScreen = ({ onNavigate }) => (
                 </div>
 
                 <div className="bg-[var(--color-accent-yellow)] rounded-3xl p-6 flex flex-col justify-center animate-floatUp" style={{ animationDelay: '500ms', opacity: 0 }}>
-                    <h2 className="text-4xl lg:text-5xl font-serif leading-none mb-2">80%</h2>
-                    <p className="text-sm lg:text-base font-medium">accuracy after 3 cycles logged</p>
+                    <h2 className="text-3xl lg:text-4xl font-serif leading-none mb-2">80%</h2>
+                    <p className="text-sm font-medium">accuracy after 3 cycles logged</p>
                 </div>
 
                 <div className="bg-white rounded-3xl p-6 border border-[var(--color-border-light)] animate-floatUp" style={{ animationDelay: '600ms', opacity: 0 }}>
                     <ShieldCheck size={28} className="text-[var(--color-brand-primary)] mb-2" />
-                    <h3 className="font-serif text-lg lg:text-xl leading-tight mb-1">100% private</h3>
+                    <h3 className="font-serif text-lg leading-tight mb-1">100% private</h3>
                     <p className="text-xs text-[var(--color-text-secondary)]">No data selling promise</p>
                 </div>
 
                 <div className="col-span-2 bg-white rounded-3xl p-6 border border-[var(--color-border-light)] shadow-sm animate-floatUp" style={{ animationDelay: '700ms', opacity: 0 }}>
-                    <h3 className="text-2xl lg:text-3xl font-serif mb-2">Understand your phase, not just your date</h3>
+                    <h3 className="text-xl lg:text-2xl font-serif mb-2">Understand your phase, not just your date</h3>
                     <p className="text-sm lg:text-base text-[var(--color-text-secondary)]">Maitri translates hormone shifts into plain language so you know exactly why you feel the way you do.</p>
                 </div>
             </div>
@@ -56,7 +56,7 @@ const LandingScreen = ({ onNavigate }) => (
 
         {/* Dark Section */}
         <div className="bg-[var(--color-bg-secondary)] text-white py-16 px-6 lg:px-12 -mb-6 relative mt-12 lg:rounded-t-[4rem]">
-            <h2 className="text-4xl lg:text-6xl font-serif mb-12 text-center">Built for how you actually live</h2>
+            <h2 className="text-3xl lg:text-4xl font-serif mb-12 text-center">Built for how you actually live</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                 {[
                     { title: 'Cycle Tracking', color: 'text-[var(--color-text-primary)] bg-[var(--color-accent-yellow)]' },
@@ -64,7 +64,7 @@ const LandingScreen = ({ onNavigate }) => (
                     { title: 'Community Circles', color: 'text-[var(--color-text-primary)] bg-[var(--color-brand-secondary)]' },
                 ].map((item, i) => (
                     <div key={item.title} className={`${item.color} rounded-2xl p-8 shadow-lg transform hover:-translate-y-2 transition-transform h-32 flex items-center justify-center`}>
-                        <h3 className="text-xl lg:text-2xl font-serif text-center">{item.title}</h3>
+                        <h3 className="text-lg lg:text-xl font-serif text-center">{item.title}</h3>
                     </div>
                 ))}
             </div>

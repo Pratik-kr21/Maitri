@@ -21,8 +21,12 @@
   --color-accent-yellow: #FFF3CD;
   --color-accent-peach: #FFDAB9;
 
-  --color-border-light: #F0E1E4;
+  --color-border-light: rgba(232, 122, 134, 0.15);
   --color-border-dark: #4A2F37;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: 0 8px 32px 0 rgba(232, 122, 134, 0.1);
 }
 
 body {

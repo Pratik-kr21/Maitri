@@ -39,7 +39,7 @@ export default function App() {
         {screen === 'health' && <HealthScreen />}
         {screen === 'askMaitri' && <AskMaitriScreen />}
         {screen === 'community' && <CommunityScreen />}
-        {screen === 'settings' && <SettingsScreen />}
+        {screen === 'settings' && <SettingsScreen onNavigate={navigate} />}
 
         {showBottomNav && <BottomNav active={screen} onChange={navigate} />}
       </main>
