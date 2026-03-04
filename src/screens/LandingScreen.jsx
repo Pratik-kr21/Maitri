@@ -9,6 +9,12 @@ const LandingScreen = ({ onNavigate }) => (
         <div className="lg:flex lg:items-center lg:gap-12 lg:px-12">
             {/* Hero */}
             <div className="px-6 relative mb-16 lg:mb-0 lg:flex-1">
+                <div className="flex items-center gap-3 mb-8">
+                    <img src="/logo.png" alt="Maitri Logo" className="w-10 h-10 object-contain rounded-xl shadow-sm" />
+                    <span className="font-serif text-2xl font-bold tracking-tight text-[var(--color-text-primary)]">
+                        Maitri<span className="text-[var(--color-brand-primary)]">.</span>
+                    </span>
+                </div>
                 <HeartbeatDivider />
                 <h1 className="text-4xl lg:text-5xl font-serif text-[var(--color-text-primary)] leading-tight tracking-tight mt-6 mb-4 animate-floatUp" style={{ animationDelay: '100ms', opacity: 0 }}>
                     Your cycle, explained.<br />Finally.

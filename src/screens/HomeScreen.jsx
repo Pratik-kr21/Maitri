@@ -9,6 +9,41 @@ import SymptomChip from '../components/common/SymptomChip';
 import CheckCircle from '../components/common/CheckCircle';
 import axios from 'axios';
 
+const calculateInsight = (daysProgress) => {
+    // Normalize to 1-28 days
+    const day = ((daysProgress - 1) % 28) + 1;
+
+    if (day >= 1 && day <= 5) {
+        return {
+            phase: 'Menstrual',
+            whatsHappening: 'Your body is shedding its uterine lining. Hormones are at their lowest point.',
+            whyYouFeel: 'You might feel fatigued, experience cramps, or have lower energy.',
+            oneSmallThing: 'Prioritize rest and gentle movements. A warm tea might help soothe any discomfort.'
+        };
+    } else if (day >= 6 && day <= 13) {
+        return {
+            phase: 'Follicular',
+            whatsHappening: 'Oestrogen is rising, bringing an upward trend in energy and mood.',
+            whyYouFeel: 'You might feel more motivated or less sluggish than usual today as hormone levels rebuild.',
+            oneSmallThing: 'Hydrate well! Increasing your water intake can maximize this energy boost.'
+        };
+    } else if (day >= 14 && day <= 17) {
+        return {
+            phase: 'Ovulatory',
+            whatsHappening: 'Oestrogen peaks. An egg is released, and you might feel your most vibrant.',
+            whyYouFeel: 'You may feel extra confident, social, and communicative. Energy levels are typically at their highest.',
+            oneSmallThing: 'Connect with others! This is a great time for social events and important conversations.'
+        };
+    } else {
+        return {
+            phase: 'Luteal',
+            whatsHappening: 'Progesterone rises to prepare the body. If not pregnant, hormones will drop soon.',
+            whyYouFeel: 'You might begin to feel more inward-focused, experience cravings, or notice mood fluctuations.',
+            oneSmallThing: 'Listen to your body. Opt for nourishing foods and mindful activities like yoga or reading.'
+        };
+    }
+};
+
 const HomeScreen = () => {
     const [step, setStep] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -35,18 +70,14 @@ const HomeScreen = () => {
 
                 // Get Cycles
                 const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/cycles`, config);
+                let currentDay = 7;
                 if (res.data && res.data.length > 0) {
                     setActiveCycle(res.data[0]);
+                    currentDay = Math.floor((new Date() - new Date(res.data[0].startDate)) / (1000 * 60 * 60 * 24)) + 1;
+                    if (currentDay < 1) currentDay = 1;
                 }
 
-                // Complex Mock payload representing what backend would yield 
-                // in full production version!
-                setInsight({
-                    phase: 'Follicular',
-                    whatsHappening: 'Oestrogen is rising, which usually brings an upward trend in energy and mood as your body clears out the old lining.',
-                    whyYouFeel: 'You might feel slightly more motivated or less sluggish than usual today as hormone levels rebuild.',
-                    oneSmallThing: 'Hydrate well! Increasing your water intake can maximize this energy boost.'
-                });
+                setInsight(calculateInsight(currentDay));
             } catch (err) {
                 console.error(err);
             } finally {
@@ -90,8 +121,12 @@ const HomeScreen = () => {
 
     if (loading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-[var(--color-brand-primary)]" size={40} /></div>;
 
-    const daysProgress = activeCycle ? Math.floor((new Date() - new Date(activeCycle.startDate)) / (1000 * 60 * 60 * 24)) : 7;
-    const daysRemaining = 28 - daysProgress;
+    const rawDays = activeCycle ? Math.floor((new Date() - new Date(activeCycle.startDate)) / (1000 * 60 * 60 * 24)) + 1 : 7;
+    const daysProgress = rawDays > 0 ? rawDays : 1;
+
+    // Calculate days remaining in a standard 28-day cycle, wrap around if needed
+    const dayInCycle = ((daysProgress - 1) % 28) + 1;
+    const daysRemaining = 28 - dayInCycle + 1;
 
     return (
         <div className="pb-24 pt-6 px-4 md:px-8 relative max-w-7xl mx-auto overflow-hidden">
@@ -101,7 +136,8 @@ const HomeScreen = () => {
 
             {/* Top bar */}
             <div className="flex justify-between items-center mb-8 mt-2">
-                <div>
+                <div className="flex items-center gap-2">
+                    <img src="/logo.png" alt="Maitri Logo" className="w-8 h-8 object-contain rounded-full shadow-sm" />
                     <div className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-[var(--color-text-primary)] relative inline-block">
                         Maitri<span className="text-[var(--color-brand-primary)]">.</span>
                         <Sparkles className="absolute -top-2 -right-5 text-[var(--color-accent-peach)] opacity-60" size={16} />

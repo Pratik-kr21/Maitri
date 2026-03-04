@@ -68,7 +68,10 @@ const AuthScreen = ({ onNavigate }) => {
                     </button>
                 </div>
 
-                <h2 className="text-3xl font-serif mb-6">{isSignUp ? 'Welcome to Maitri' : 'Welcome back'}</h2>
+                <div className="flex justify-center mb-4">
+                    <img src="/logo.png" alt="Maitri Logo" className="w-16 h-16 object-contain rounded-2xl shadow-sm" />
+                </div>
+                <h2 className="text-3xl font-serif text-center mb-6">{isSignUp ? 'Welcome to Maitri' : 'Welcome back'}</h2>
 
                 {error && (
                     <div className="bg-red-100 text-red-600 p-3 rounded-xl mb-4 text-sm font-medium text-center">
