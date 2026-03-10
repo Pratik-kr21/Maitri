@@ -1,22 +1,32 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const protect = (req, res, next) => {
+const protect = async (req, res, next) => {
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        try {
-            token = req.headers.authorization.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
-            req.user = decoded;
-            next();
-        } catch (error) {
-            console.error(error);
-            res.status(401).json({ message: 'Not authorized, token failed' });
-        }
+        token = req.headers.authorization.split(' ')[1];
     }
 
     if (!token) {
-        res.status(401).json({ message: 'Not authorized, no token' });
+        return res.status(401).json({ success: false, message: 'Not authorized, no token' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'maitri_secret');
+        req.user = await User.findById(decoded.id).select('-magicLinkToken -parentalConsentToken');
+
+        if (!req.user || req.user.deletedAt) {
+            return res.status(401).json({ success: false, message: 'User not found' });
+        }
+
+        if (!req.user.isVerified) {
+            return res.status(401).json({ success: false, message: 'Email not verified' });
+        }
+
+        next();
+    } catch (err) {
+        return res.status(401).json({ success: false, message: 'Not authorized, token invalid' });
     }
 };
 

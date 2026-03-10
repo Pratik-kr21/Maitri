@@ -1,0 +1,10 @@
+node_modules
+server/node_modules
+.git
+*.log
+test-*.js
+*.mjs
+check-user.js
+server/test-models.js
+server/test-models-new.js
+server/test-output.txt

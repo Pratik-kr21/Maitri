@@ -1,41 +1,73 @@
 const mongoose = require('mongoose');
 
 const dailyLogSchema = new mongoose.Schema({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
     },
     cycleId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Cycle'
+        ref: 'Cycle',
+        default: null,
     },
     logDate: {
         type: Date,
         required: true,
-        default: Date.now
     },
     flowIntensity: {
         type: String,
         enum: ['none', 'spotting', 'light', 'medium', 'heavy'],
-        default: 'none'
+        default: 'none',
     },
-    symptoms: [{
-        type: String
+    physicalSymptoms: [{
+        type: String,
+        enum: [
+            'cramps', 'bloating', 'headache', 'breast_tenderness', 'acne',
+            'fatigue', 'nausea', 'back_pain', 'spotting', 'heavy_flow', 'light_flow'
+        ]
+    }],
+    emotionalSymptoms: [{
+        type: String,
+        enum: [
+            'anxious', 'irritable', 'sad', 'happy', 'calm',
+            'overwhelmed', 'motivated', 'brain_fog', 'low_confidence'
+        ]
     }],
     energyLevel: {
         type: String,
         enum: ['low', 'medium', 'high'],
-        default: 'medium'
+        default: 'medium',
     },
     moodWord: {
         type: String,
-        maxLength: 30
+        maxlength: 30,
+        default: '',
     },
     notes: {
         type: String,
-        maxLength: 280
-    }
-}, { timestamps: true });
+        maxlength: 280,
+        default: '',
+    },
+    aiInsight: {
+        type: mongoose.Schema.Types.Mixed,
+        default: null,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
+
+// Compound index for user + date (one log per day per user)
+dailyLogSchema.index({ userId: 1, logDate: 1 }, { unique: true });
+
+dailyLogSchema.pre('save', async function () {
+    this.updatedAt = Date.now();
+});
 
 module.exports = mongoose.model('DailyLog', dailyLogSchema);

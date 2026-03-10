@@ -1,43 +1,119 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-    },
     email: {
         type: String,
-        required: true,
+        required: [true, 'Email is required'],
+        unique: true,
+        lowercase: true,
+        trim: true,
+    },
+    username: {
+        type: String,
+        required: [true, 'Username is required'],
         unique: true,
         trim: true,
-        lowercase: true,
+        minlength: 3,
+        maxlength: 30,
+        match: [/^[a-zA-Z0-9._]+$/, 'Username can only contain letters, numbers, underscores, and dots.'],
     },
-    password: {
+    displayName: {
         type: String,
-        required: true,
+        trim: true,
+        maxlength: 50,
+    },
+    anonymousName: {
+        type: String,
+        unique: true,
+        sparse: true,
     },
     dateOfBirth: {
         type: Date,
+        required: [true, 'Date of birth is required'],
     },
     isMinor: {
         type: Boolean,
-        default: false
-    }
-}, { timestamps: true });
-
-// Hash password before saving
-userSchema.pre('save', async function () {
-    if (!this.isModified('password')) return;
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+        default: false,
+    },
+    parentalConsentGranted: {
+        type: Boolean,
+        default: false,
+    },
+    parentalConsentEmail: {
+        type: String,
+        default: null,
+    },
+    parentalConsentToken: {
+        type: String,
+        default: null,
+    },
+    otp: {
+        type: String,
+        default: null,
+    },
+    otpExpires: {
+        type: Date,
+        default: null,
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    avatar: {
+        type: String,
+        default: 'lotus',
+        enum: ['lotus', 'moon', 'sun', 'star', 'flower', 'leaf'],
+    },
+    avatarColor: {
+        type: String,
+        default: '#E87A86',
+    },
+    notificationsEnabled: {
+        type: Boolean,
+        default: true,
+    },
+    pushSubscription: {
+        type: mongoose.Schema.Types.Mixed,
+        default: null,
+    },
+    patternDetectionEnabled: {
+        type: Boolean,
+        default: true,
+    },
+    aiHistoryEnabled: {
+        type: Boolean,
+        default: true,
+    },
+    aiQueriesToday: {
+        type: Number,
+        default: 0,
+    },
+    lastAiQueryDate: {
+        type: Date,
+        default: null,
+    },
+    ageBracket: {
+        type: String,
+        enum: ['teen', 'adult'],
+        default: 'adult',
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    deletedAt: {
+        type: Date,
+        default: null,
+    },
 });
 
-// Compare password
-userSchema.methods.comparePassword = async function (candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.password);
-};
+// Compute age bracket before save
+userSchema.pre('save', async function () {
+    if (this.dateOfBirth) {
+        const age = new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear();
+        this.isMinor = age < 18;
+        this.ageBracket = age < 18 ? 'teen' : 'adult';
+    }
+});
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,48 +1,73 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
 
-// Screens
-import LandingScreen from './screens/LandingScreen';
-import AuthScreen from './screens/AuthScreen';
-import OnboardingScreen from './screens/OnboardingScreen';
-import HomeScreen from './screens/HomeScreen';
-import HealthScreen from './screens/HealthScreen';
-import AskMaitriScreen from './screens/AskMaitriScreen';
-import CommunityScreen from './screens/CommunityScreen';
-import SettingsScreen from './screens/SettingsScreen';
+// Pages
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import VerifyEmailPage from './pages/VerifyEmailPage';
+import HomePage from './pages/HomePage';
+import JournalPage from './pages/JournalPage';
+import CommunityPage from './pages/CommunityPage';
+import AskMaitriPage from './pages/AskMaitriPage';
+import VaultPage from './pages/VaultPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Layout
-import BottomNav from './components/layout/BottomNav';
+import AppLayout from './components/layout/AppLayout';
+
+const ProtectedRoute = ({ children }) => {
+    const { user, loading } = useAuth();
+    if (loading) return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+            <div className="spinner spinner-lg" />
+        </div>
+    );
+    if (!user) return <Navigate to="/login" replace />;
+    return children;
+};
+
+const PublicRoute = ({ children }) => {
+    const { user, loading } = useAuth();
+    if (loading) return null;
+    if (user) return <Navigate to="/home" replace />;
+    return children;
+};
+
+const AppRoutes = () => {
+    return (
+        <Routes>
+            {/* Public */}
+            <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+            <Route path="/signup" element={<PublicRoute><SignupPage /></PublicRoute>} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
+
+            {/* Protected — with nav layout */}
+            <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/journal" element={<JournalPage />} />
+                <Route path="/community" element={<CommunityPage />} />
+                <Route path="/ask" element={<AskMaitriPage />} />
+                <Route path="/vault" element={<VaultPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+    );
+};
 
 export default function App() {
-  const [screen, setScreen] = useState('landing');
-
-  // Router overlay setup
-  const navigate = (newScreen) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setScreen(newScreen);
-  };
-
-  const showBottomNav = ['home', 'health', 'askMaitri', 'community', 'settings'].includes(screen);
-
-  return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)] font-sans text-[var(--color-text-primary)] selection:bg-[var(--color-brand-secondary)] selection:text-[var(--color-text-primary)]">
-      {/* 
-        Removed the phone-only max-w-[430px] container. 
-        Components now handle their own max-width and internal responsiveness.
-      */}
-      <main className="relative min-h-screen">
-        {screen === 'landing' && <LandingScreen onNavigate={navigate} />}
-        {screen === 'auth' && <AuthScreen onNavigate={navigate} />}
-        {screen === 'onboarding' && <OnboardingScreen onNavigate={navigate} />}
-
-        {screen === 'home' && <HomeScreen />}
-        {screen === 'health' && <HealthScreen />}
-        {screen === 'askMaitri' && <AskMaitriScreen />}
-        {screen === 'community' && <CommunityScreen />}
-        {screen === 'settings' && <SettingsScreen onNavigate={navigate} />}
-
-        {showBottomNav && <BottomNav active={screen} onChange={navigate} />}
-      </main>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <AuthProvider>
+                <ToastProvider>
+                    <AppRoutes />
+                </ToastProvider>
+            </AuthProvider>
+        </BrowserRouter>
+    );
 }
