@@ -133,7 +133,10 @@ export default function CommunityPage() {
             <div className="flex items-center gap-4 pt-3 border-t border-[#F0E8EA]">
                 <button onClick={() => upvote(p._id)}
                     className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${p.isUpvoted ? 'text-[#E87A86]' : 'text-[#9E7A82] hover:text-[#E87A86]'}`}>
-                    <svg width="14" height="14" fill={p.isUpvoted ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg>
+                    <svg width="16" height="16" fill={p.isUpvoted ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
+                        style={{ transition: 'transform 0.15s ease', transform: p.isUpvoted ? 'scale(1.25)' : 'scale(1)' }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
                     {p.upvotes || 0}
                 </button>
                 <button onClick={() => loadReplies(p._id)}

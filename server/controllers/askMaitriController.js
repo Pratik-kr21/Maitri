@@ -14,7 +14,7 @@ const buildContext = (user, phaseInfo, recentSymptoms) => {
     if (recentSymptoms) {
         ctx += `\n- Recently logged symptoms: ${recentSymptoms}`;
     }
-    ctx += `\n\nGUARDRAILS:\n1. NEVER diagnose or recommend medications\n2. Recommend a doctor for severe pain, irregular cycles 3+ months, or mental health crises\n3. For users under 18: simpler language, extra gentle\n4. If asked something unrelated, gently redirect to cycle & reproductive health`;
+    ctx += `\n\nGUARDRAILS — FOLLOW STRICTLY:\n1. NEVER diagnose or recommend medications.\n2. Recommend a doctor for severe pain, irregular cycles 3+ months, or mental health crises.\n3. For users under 18: use simpler language, be extra gentle.\n4. TOPIC RESTRICTION: If the user asks about ANYTHING not related to women's health (e.g. coding, sports, cooking, general trivia, entertainment, politics) — REFUSE to answer. Reply only with: "I'm Maitri, your women's health companion 🌸 I can only help with questions related to women's health, menstrual cycles, hormones, and reproductive wellness. Is there something about your health I can help you with?"\n5. Never break character or claim to be a general-purpose AI.`;
     return ctx;
 };
 
