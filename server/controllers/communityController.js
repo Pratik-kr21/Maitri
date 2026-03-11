@@ -39,6 +39,7 @@ const getPosts = async (req, res) => {
             upvotes: p.upvotes.length,
             isUpvoted: p.upvotes.some(uid => uid.toString() === req.user._id.toString()),
             isSaved: p.savedBy?.some(uid => uid.toString() === req.user._id.toString()),
+            isOwner: p.createdBy?._id?.toString() === req.user._id.toString(),
         }));
 
         res.json({ success: true, posts: enriched });
@@ -185,6 +186,7 @@ const getSavedPosts = async (req, res) => {
             upvotes: p.upvotes.length,
             isUpvoted: p.upvotes.some(uid => uid.toString() === req.user._id.toString()),
             isSaved: true,
+            isOwner: p.createdBy?._id?.toString() === req.user._id.toString(),
         }));
 
         res.json({ success: true, posts: enriched });
@@ -193,4 +195,24 @@ const getSavedPosts = async (req, res) => {
     }
 };
 
-module.exports = { getPosts, createPost, upvotePost, savePost, getReplies, createReply, getSavedPosts };
+// @route DELETE /api/community/posts/:id
+const deletePost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) return res.status(404).json({ success: false, message: 'Post not found' });
+
+        if (post.createdBy.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ success: false, message: 'You can only delete your own posts' });
+        }
+
+        // Delete all replies associated with this post
+        await Reply.deleteMany({ post: req.params.id });
+        await Post.findByIdAndDelete(req.params.id);
+
+        res.json({ success: true, message: 'Post deleted' });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+};
+
+module.exports = { getPosts, createPost, upvotePost, savePost, getReplies, createReply, getSavedPosts, deletePost };

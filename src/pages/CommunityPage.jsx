@@ -19,6 +19,7 @@ export default function CommunityPage() {
     const [expanded, setExpanded] = useState(null);
     const [replies, setReplies] = useState({});
     const [replyText, setReplyText] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState(null); // holds post id to confirm
 
     const CIRCLES = [
         { id: 'general', label: 'General' },
@@ -90,14 +91,32 @@ export default function CommunityPage() {
         } catch { }
     };
 
+    const isReplying = React.useRef(false);
+
     const submitReply = async (postId) => {
-        if (!replyText.trim()) return;
+        if (!replyText.trim() || isReplying.current) return;
+        isReplying.current = true;
         try {
             const res = await api.post(`/community/posts/${postId}/replies`, { body: replyText, isAnonymous: true });
             setReplies(r => ({ ...r, [postId]: [...(r[postId] || []), res.data.reply] }));
             setReplyText('');
             toast.success('Reply posted');
         } catch (err) { toast.error(err.response?.data?.message || 'Could not post reply'); }
+        finally { isReplying.current = false; }
+    };
+
+    const deletePost = async (id) => {
+        try {
+            // Optimistically remove from UI
+            setPosts(ps => ps.filter(p => p._id !== id));
+            setSaved(sv => sv.filter(p => p._id !== id));
+            await api.delete(`/community/posts/${id}`);
+            toast.success('Post deleted');
+        } catch (err) {
+            toast.error(err.response?.data?.message || 'Could not delete post');
+            // Reload to restore state
+            loadPosts();
+        }
     };
 
     const PostCard = ({ p }) => (
@@ -127,6 +146,18 @@ export default function CommunityPage() {
                     <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" /></svg>
                     Save
                 </button>
+                {p.isOwner && (
+                    <button
+                        onClick={() => setConfirmDelete(p._id)}
+                        title="Delete post"
+                        className="flex items-center gap-1 text-xs font-medium text-[#9E7A82] hover:text-red-500 transition-colors"
+                    >
+                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Delete
+                    </button>
+                )}
                 <span className="text-xs text-[#B0909A]">
                     Anonymous · {new Date(p.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                 </span>
@@ -152,8 +183,8 @@ export default function CommunityPage() {
                         <div className="flex gap-2">
                             <input className="flex-1 px-3 py-2 rounded-lg border border-[#EDE0E3] text-sm focus:border-[#E87A86] focus:outline-none placeholder:text-[#C0A8AC]"
                                 placeholder="Write a reply…" value={replyText} onChange={e => setReplyText(e.target.value)}
-                                onKeyDown={e => e.key === 'Enter' && submitReply(p._id)} />
-                            <button onClick={() => submitReply(p._id)}
+                                onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); submitReply(p._id); } }} />
+                            <button type="button" onClick={() => submitReply(p._id)}
                                 className="px-3 py-2 bg-[#E87A86] text-white text-sm font-semibold rounded-lg hover:bg-[#D66874] whitespace-nowrap">
                                 Reply
                             </button>
@@ -256,6 +287,37 @@ export default function CommunityPage() {
                                     <button onClick={createPost} disabled={posting}
                                         className="flex-1 py-2.5 bg-[#E87A86] text-white text-sm font-semibold rounded-lg hover:bg-[#D66874] disabled:opacity-40">
                                         {posting ? 'Posting…' : 'Post'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Delete Confirm Modal */}
+                {confirmDelete && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+                        <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl">
+                            <div className="flex flex-col items-center gap-4 text-center">
+                                <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+                                    <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#ef4444" strokeWidth="2">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 className="font-heading text-lg font-semibold text-[#2C1A1D] mb-1">Delete post?</h3>
+                                    <p className="text-sm text-[#9E7A82]">This will permanently delete the post and all its replies. This action cannot be undone.</p>
+                                </div>
+                                <div className="flex gap-3 w-full mt-1">
+                                    <button
+                                        onClick={() => setConfirmDelete(null)}
+                                        className="flex-1 py-2.5 text-sm font-semibold text-[#9E7A82] rounded-lg border border-[#EDE0E3] hover:bg-[#F8F4F5] transition-colors">
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={() => { deletePost(confirmDelete); setConfirmDelete(null); }}
+                                        className="flex-1 py-2.5 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 transition-colors">
+                                        Delete
                                     </button>
                                 </div>
                             </div>
