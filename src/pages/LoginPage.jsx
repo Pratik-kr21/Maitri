@@ -17,7 +17,6 @@ export default function LoginPage() {
         setLoading(true);
         try {
             const res = await api.post('/auth/login', { identifier });
-            window.alert('SENT! Check your email or look at the screen for dev code.');
             setSubmitted(true);
             // res.data.email is the actual email we sent to
             if (res.data.email) setSentToEmail(res.data.email);
@@ -26,7 +25,6 @@ export default function LoginPage() {
             console.error('Login error details:', err);
             const status = err.response?.status;
             const msg = err.response?.data?.message || err.message;
-            window.alert(`Login Failed!\nStatus: ${status || 'Network Error'}\nMessage: ${msg}`);
             toast.error(`Error (${status || 'Network'}): ${msg}`);
         } finally {
             setLoading(false);
@@ -40,7 +38,7 @@ export default function LoginPage() {
                 <div className="bg-white rounded-3xl p-8 shadow-md-pink border border-maitri-border">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 no-underline mb-8">
-                        <span className="text-2xl">🌸</span>
+                        <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
                         <span className="font-heading text-xl font-semibold text-brand-primary">Maitri</span>
                     </Link>
 

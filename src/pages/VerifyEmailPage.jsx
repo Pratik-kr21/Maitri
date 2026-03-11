@@ -69,7 +69,7 @@ export default function VerifyEmailPage() {
         <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
             <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-md-pink border border-maitri-border">
                 <Link to="/" className="flex justify-center items-center gap-2 no-underline mb-6">
-                    <span className="text-2xl">🌸</span>
+                    <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
                     <span className="font-heading text-xl font-semibold text-brand-primary">Maitri</span>
                 </Link>
 

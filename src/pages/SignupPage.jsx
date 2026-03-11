@@ -87,7 +87,6 @@ export default function SignupPage() {
             toast.success('Account created! Check your email for the code.');
         } catch (err) {
             const msg = err.response?.data?.message || err.message || 'Something went wrong';
-            window.alert(`Signup Failed: ${msg}`);
             toast.error(msg);
 
             // Map common errors back to fields and go back to first step
@@ -109,7 +108,7 @@ export default function SignupPage() {
                 <div className="bg-white rounded-3xl p-8 shadow-md-pink border border-maitri-border">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 no-underline mb-6">
-                        <span className="text-2xl">🌸</span>
+                        <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
                         <span className="font-heading text-xl font-semibold text-brand-primary">Maitri</span>
                     </Link>
 

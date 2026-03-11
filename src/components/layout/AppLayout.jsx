@@ -25,11 +25,7 @@ export default function AppLayout() {
                     <div className="flex justify-between items-center h-16">
                         {/* Logo */}
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-lg bg-[#E87A86] flex items-center justify-center">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
-                                </svg>
-                            </div>
+                            <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
                             <span className="font-heading text-xl font-semibold text-[#2C1A1D]">Maitri</span>
                         </div>
 

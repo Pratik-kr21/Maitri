@@ -33,7 +33,7 @@ export default function LandingPage() {
                 style={{ background: 'rgba(255,245,248,0.93)', backdropFilter: 'blur(12px)' }}>
                 <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2">
-                        <span className="text-2xl">🌸</span>
+                        <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
                         <span className="font-heading text-xl font-semibold text-brand-primary">Maitri</span>
                     </div>
                     <nav className="hidden sm:flex gap-6 text-sm font-medium text-maitri-mid">
@@ -211,7 +211,7 @@ export default function LandingPage() {
             <footer className="border-t border-maitri-border py-6 px-6">
                 <div className="max-w-6xl mx-auto flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl">🌸</span>
+                        <img src="/favicon.svg" alt="Maitri logo" className="w-7 h-7" />
                         <span className="font-heading text-lg font-semibold text-brand-primary">Maitri</span>
                     </div>
                     <p className="text-xs text-maitri-muted max-w-xl">
