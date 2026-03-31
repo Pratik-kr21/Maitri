@@ -123,7 +123,7 @@ export default function HomePage() {
 
     return (
         <div className="h-full w-full overflow-y-auto">
-            <div className="min-h-full max-w-7xl mx-auto p-6 lg:p-8">
+            <div className="min-h-full w-full p-6 lg:p-8">
 
                 {/* ── Page header ── */}
                 <div className="mb-8">

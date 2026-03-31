@@ -98,7 +98,7 @@ export default function AskMaitriPage() {
 
             {/* Header */}
             <div className="bg-white border-b border-[#EDE0E3] px-6 py-4 flex-shrink-0">
-                <div className="max-w-3xl mx-auto flex items-center justify-between gap-6">
+                <div className="w-full flex items-center justify-between gap-6">
                     <div>
                         <h1 className="font-heading text-xl font-semibold text-[#2C1A1D]">Ask Maitri</h1>
                         <div className="flex items-center gap-2 mt-0.5">
@@ -124,7 +124,7 @@ export default function AskMaitriPage() {
                 </div>
 
                 {/* Disclaimer bar */}
-                <div className="max-w-3xl mx-auto mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-2">
+                <div className="w-full mt-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center gap-2">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-amber-600 flex-shrink-0"
                         stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                     <p className="text-xs text-amber-800">Maitri provides <strong>health education, not medical advice.</strong> For urgent symptoms, please consult a doctor.</p>
@@ -133,7 +133,7 @@ export default function AskMaitriPage() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto min-h-0">
-                <div className="max-w-3xl mx-auto px-4 md:px-6 py-6 flex flex-col gap-4">
+                <div className="w-full px-4 md:px-6 py-6 flex flex-col gap-4">
 
                     {messages.length === 0 && (
                         <div className="flex flex-col items-center text-center py-10 gap-6">
@@ -231,7 +231,7 @@ export default function AskMaitriPage() {
             {/* Follow-up chips */}
             {messages.length > 0 && !loading && suggestions.length > 0 && (
                 <div className="border-t border-[#EDE0E3] bg-white/70 px-6 py-2 flex-shrink-0">
-                    <div className="max-w-3xl mx-auto flex gap-2 overflow-x-auto scrollbar-hide">
+                    <div className="w-full flex gap-2 overflow-x-auto scrollbar-hide">
                         <span className="text-xs text-[#9E7A82] font-medium flex-shrink-0 self-center">Ask more:</span>
                         {suggestions.slice(0, 4).map(s => (
                             <button key={s} onClick={() => sendMessage(s)}
@@ -246,7 +246,7 @@ export default function AskMaitriPage() {
 
             {/* Input */}
             <div className="border-t border-[#EDE0E3] bg-white px-6 py-4 flex-shrink-0">
-                <div className="max-w-3xl mx-auto">
+                <div className="w-full">
                     {queriesLeft <= 0 ? (
                         <p className="text-center text-sm text-[#9E7A82] py-2">
                             You've reached your daily limit of {DAILY_LIMIT} questions. Come back tomorrow.
