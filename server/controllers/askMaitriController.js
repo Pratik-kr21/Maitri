@@ -1,6 +1,7 @@
 const DailyLog = require('../models/DailyLog');
 const Cycle = require('../models/Cycle');
 const User = require('../models/User');
+const ChatHistory = require('../models/ChatHistory');
 const { askAI } = require('../services/aiService');
 
 const DAILY_LIMIT = 25;
@@ -87,6 +88,26 @@ const chat = async (req, res) => {
         user.aiQueriesToday += 1;
         await user.save();
 
+        // ── Save to chat history ──────────────────────
+        if (user.aiHistoryEnabled) {
+            try {
+                await ChatHistory.findOneAndUpdate(
+                    { userId: user._id, date: today },
+                    {
+                        $push: {
+                            messages: {
+                                $each: [
+                                    { role: 'user', content: message.trim(), ts: new Date() },
+                                    { role: 'assistant', content: response, ts: new Date() },
+                                ]
+                            }
+                        }
+                    },
+                    { upsert: true, new: true }
+                );
+            } catch (e) { /* non-critical — don't break the response */ }
+        }
+
         res.json({
             success: true,
             response,
@@ -152,4 +173,23 @@ const getSuggestions = async (req, res) => {
     }
 };
 
-module.exports = { chat, getSuggestions };
+// GET /api/ask-maitri/history
+const getHistory = async (req, res) => {
+    try {
+        const days = parseInt(req.query.days) || 7;
+        const since = new Date();
+        since.setDate(since.getDate() - days);
+        const sinceDate = since.toISOString().split('T')[0];
+
+        const records = await ChatHistory.find({
+            userId: req.user._id,
+            date: { $gte: sinceDate },
+        }).sort({ date: -1 }).lean();
+
+        res.json({ success: true, history: records });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+};
+
+module.exports = { chat, getSuggestions, getHistory };
