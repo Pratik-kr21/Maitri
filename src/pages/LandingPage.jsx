@@ -51,7 +51,7 @@ export default function LandingPage() {
             </header>
 
             {/* ── Hero ── */}
-            <section className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-64px)]">
+            <section className="w-full px-8 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-64px)]">
                 {/* Left */}
                 <div className="flex flex-col gap-6">
                     <span className="badge badge-pink self-start text-xs py-1.5 px-3">
@@ -126,7 +126,7 @@ export default function LandingPage() {
             </section>
 
             {/* ── Features ── */}
-            <section id="features" className="py-24 max-w-6xl mx-auto px-6">
+            <section id="features" className="py-24 w-full px-8">
                 <div className="text-center mb-16">
                     <h2 className="font-heading text-4xl font-semibold text-maitri-dark mb-4">
                         Built for your whole cycle,<br />not just your period.
@@ -152,7 +152,7 @@ export default function LandingPage() {
 
             {/* ── Privacy Banner ── */}
             <section className="bg-bg-secondary py-20">
-                <div className="max-w-4xl mx-auto px-6 text-center">
+                <div className="w-full px-8 text-center">
                     <h2 className="font-heading text-4xl font-semibold text-white mb-4">
                         Your data never leaves your control.
                     </h2>
@@ -173,7 +173,7 @@ export default function LandingPage() {
             </section>
 
             {/* ── Phases ── */}
-            <section id="phases" className="py-24 max-w-6xl mx-auto px-6">
+            <section id="phases" className="py-24 w-full px-8">
                 <div className="text-center mb-16">
                     <h2 className="font-heading text-4xl font-semibold text-maitri-dark mb-4">Every phase, explained.</h2>
                     <p className="text-lg text-maitri-mid max-w-xl mx-auto">
@@ -195,7 +195,7 @@ export default function LandingPage() {
 
             {/* ── CTA ── */}
             <section className="bg-white py-24">
-                <div className="max-w-2xl mx-auto px-6 text-center">
+                <div className="w-full px-8 text-center">
                     <h2 className="font-heading text-4xl font-semibold text-maitri-dark mb-3">
                         Start understanding your cycle today.
                     </h2>
@@ -209,7 +209,7 @@ export default function LandingPage() {
 
             {/* ── Footer ── */}
             <footer className="border-t border-maitri-border py-6 px-6">
-                <div className="max-w-6xl mx-auto flex flex-col gap-2">
+                <div className="w-full flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                         <img src="/favicon.svg" alt="Maitri logo" className="w-7 h-7" />
                         <span className="font-heading text-lg font-semibold text-brand-primary">Maitri</span>
