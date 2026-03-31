@@ -31,10 +31,10 @@ export default function LandingPage() {
             {/* ── Navbar ── */}
             <header className="sticky top-0 z-50 border-b border-maitri-border"
                 style={{ background: 'rgba(255,245,248,0.93)', backdropFilter: 'blur(12px)' }}>
-                <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+                <div className="w-full px-8 h-16 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2">
-                        <img src="/favicon.svg" alt="Maitri logo" className="w-8 h-8" />
-                        <span className="font-heading text-xl font-semibold text-brand-primary">Maitri</span>
+                        <img src="/favicon.svg" alt="Maitri logo" className="w-10 h-10" />
+                        <span className="font-heading text-2xl font-semibold text-brand-primary">Maitri</span>
                     </div>
                     <nav className="hidden sm:flex gap-6 text-sm font-medium text-maitri-mid">
                         <a href="#features" className="hover:text-brand-primary transition-colors">Features</a>
