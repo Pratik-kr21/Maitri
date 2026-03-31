@@ -133,7 +133,7 @@ export default function AskMaitriPage() {
     const PHASE_COLORS = { menstrual: '#E87A86', follicular: '#68B984', ovulatory: '#F4A261', luteal: '#9C77C4' };
 
     return (
-        <div className="flex h-full overflow-hidden bg-[#F8F4F5]">
+        <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-[#F8F4F5]">
 
             {/* ── History Sidebar ── */}
             <aside className={`flex-shrink-0 bg-white border-r border-[#EDE0E3] flex flex-col transition-all duration-300 overflow-hidden
@@ -249,9 +249,9 @@ export default function AskMaitriPage() {
                     </div>
                 </div>
 
-                {/* Messages */}
+                {/* Messages — flex-1 + min-h-0 prevent overflow behind bottom bars */}
                 <div className="flex-1 overflow-y-auto min-h-0">
-                    <div className="w-full px-4 md:px-6 py-6 flex flex-col gap-4">
+                    <div className="max-w-3xl mx-auto px-4 md:px-6 py-6 flex flex-col gap-4">
 
                         {messages.length === 0 && (
                             <div className="flex flex-col items-center text-center py-10 gap-6">
@@ -349,7 +349,7 @@ export default function AskMaitriPage() {
                 {/* Follow-up chips */}
                 {messages.length > 0 && !loading && suggestions.length > 0 && !selectedDate && (
                     <div className="border-t border-[#EDE0E3] bg-white/70 px-6 py-2 flex-shrink-0">
-                        <div className="w-full flex gap-2 overflow-x-auto scrollbar-hide">
+                        <div className="max-w-3xl mx-auto flex gap-2 overflow-x-auto scrollbar-hide">
                             <span className="text-xs text-[#9E7A82] font-medium flex-shrink-0 self-center">Ask more:</span>
                             {suggestions.slice(0, 4).map(s => (
                                 <button key={s} onClick={() => sendMessage(s)}
@@ -365,7 +365,7 @@ export default function AskMaitriPage() {
                 {/* Input — hidden when viewing history */}
                 {!selectedDate && (
                     <div className="border-t border-[#EDE0E3] bg-white px-6 py-4 flex-shrink-0">
-                        <div className="w-full">
+                        <div className="max-w-3xl mx-auto">
                             {queriesLeft <= 0 ? (
                                 <p className="text-center text-sm text-[#9E7A82] py-2">
                                     You've reached your daily limit of {DAILY_LIMIT} questions. Come back tomorrow.
