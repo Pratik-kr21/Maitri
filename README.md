@@ -1,4 +1,4 @@
-<![CDATA[# 🌸 Maitri — Know Your Cycle
+# 🌸 Maitri — Know Your Cycle
 
 > *The first period tracker that teaches you what your cycle is actually telling you — privately, safely, and with people who get it.*
 
@@ -27,6 +27,7 @@
 - **Multi-provider failover** across Google Gemini, Groq (Llama 3), and OpenRouter for 99.9% uptime
 - **Persistent chat history** with conversations grouped by date in a collapsible sidebar
 - Per-user rate limiting and server-side AI response caching
+- Strictly scoped to women's health topics — off-topic queries are gracefully declined
 
 ### 🫂 Community Circles
 - Anonymous, moderated spaces grouped by life stage (Teens, 20s & 30s, Perimenopause, etc.)
@@ -41,8 +42,9 @@
 ### 🔐 Privacy & Security
 - OTP-based passwordless authentication via email
 - JWT session management with secure token handling
+- Minor-user safety: automatic age detection at signup with optional parental consent flow
 - Toggle-able pattern detection, AI chat history retention, and push notifications
-- Customisable profiles with avatar and accent color selection
+- Customisable profiles with avatar and accent colour selection
 
 ### 📱 Progressive Web App (PWA)
 - Installable on mobile (Android & iOS) and desktop
@@ -76,10 +78,13 @@
 | **Morgan** | HTTP request logging |
 
 ### AI Service Layer
-A custom multi-provider fallback system that automatically fails over between:
-1. **Google Gemini API** (gemini-1.5-flash) — Primary
-2. **Groq API** (llama3-8b-8192) — Secondary
-3. **OpenRouter API** (Gemma 3 / Mistral free models) — Tertiary
+A custom multi-provider fallback system with automatic cascade across providers **and** models:
+
+1. **Google Gemini API** — Primary
+   - Tries `gemini-2.5-flash` → `gemini-2.0-flash` → `gemini-1.5-flash` in sequence
+2. **Groq API** (`llama3-8b-8192`) — Secondary
+3. **OpenRouter API** — Tertiary (free model pool)
+   - Tries `gemma-3-12b-it` → `gemma-3n-e2b-it` → `gemma-2-9b-it` → `mistral-small-3.1-24b` in sequence
 
 ### Deployment
 | Service | Role |
@@ -95,7 +100,7 @@ Maitri/
 ├── public/                     # Static assets & PWA files
 │   ├── manifest.json           # PWA web app manifest
 │   ├── sw.js                   # Service worker (caching + push)
-│   ├── android-chrome-*.png    # App icons (192x192, 512x512)
+│   ├── android-chrome-*.png    # App icons (192×192, 512×512)
 │   ├── apple-touch-icon.png    # iOS home screen icon
 │   └── favicon.*               # Browser favicons
 │
@@ -136,7 +141,7 @@ Maitri/
 │   │   ├── communityController.js  # Posts, replies, upvotes
 │   │   └── vaultController.js      # Data export & history
 │   ├── models/
-│   │   ├── User.js             # User schema (auth, preferences)
+│   │   ├── User.js             # User schema (auth, preferences, age bracket)
 │   │   ├── Cycle.js            # Cycle records
 │   │   ├── DailyLog.js         # Symptom journal entries
 │   │   ├── Post.js             # Community posts
@@ -308,13 +313,9 @@ Maitri thrives on community feedback! Here's how you can help:
 2. **Request features** — Share your ideas in the issues tab
 3. **Contribute code** — Fork the repo, create a branch, and submit a pull request
 
----
 
-## 📄 License
-
-This project is licensed under the **ISC License**.
+<br>
 
 ---
 
 <p align="center">Built with 💜 for women's health</p>
-]]>
