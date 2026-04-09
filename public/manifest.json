@@ -1,0 +1,21 @@
+{
+  "name": "Maitri — Know Your Cycle",
+  "short_name": "Maitri",
+  "description": "The first period tracker that teaches you what your cycle is actually telling you.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E87A86",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
