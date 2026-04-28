@@ -18,20 +18,19 @@ import ProfilePage from './pages/ProfilePage';
 // Layout
 import AppLayout from './components/layout/AppLayout';
 
+// UI
+import LoadingScreen from './components/ui/LoadingScreen';
+
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    if (loading) return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-            <div className="spinner spinner-lg" />
-        </div>
-    );
+    if (loading) return <LoadingScreen />;
     if (!user) return <Navigate to="/login" replace />;
     return children;
 };
 
 const PublicRoute = ({ children }) => {
     const { user, loading } = useAuth();
-    if (loading) return null;
+    if (loading) return <LoadingScreen />;
     if (user) return <Navigate to="/home" replace />;
     return children;
 };
