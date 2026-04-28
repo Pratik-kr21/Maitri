@@ -299,6 +299,19 @@ The project is configured for **Vercel** deployment:
 
 ---
 
+## 🔮 Future Enhancements
+
+We are continuously working to improve Maitri. Here are some features on our roadmap:
+
+- **⌚ Wearable Integration**: Sync with Apple Health, Google Fit, and Oura Ring for automated basal body temperature (BBT) and sleep data logging.
+- **🤝 Partner Sync**: An opt-in feature to share cycle phase and empathy-driven tips with a trusted partner to foster understanding.
+- **🌍 Multilingual Support**: Expanding the app interface and AI companion to support multiple languages for global accessibility.
+- **🩺 Provider Portal**: A secure, HIPAA-compliant dashboard for healthcare providers to review patient-shared cycle data and symptom patterns.
+- **👶 Advanced TTC Mode**: Specialized features for those Trying to Conceive, including ovulation test strip scanning and detailed BBT charting.
+- **🌙 Dark Mode & Themes**: Deeper UI customization including a dedicated dark mode that aligns with the premium aesthetic.
+
+---
+
 ## 🔒 Disclaimer
 
 Maitri provides **health education only**. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.
