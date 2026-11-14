@@ -1,3 +1,16 @@
+// Suppress Node.js DEP0169 (url.parse deprecation warning) emitted by upstream dependencies in Node 22+
+const originalEmit = process.emit;
+process.emit = function (name, data, ...args) {
+    if (
+        name === 'warning' &&
+        typeof data === 'object' &&
+        (data?.code === 'DEP0169' || (data?.name === 'DeprecationWarning' && data?.message?.includes('url.parse')))
+    ) {
+        return false;
+    }
+    return originalEmit.apply(process, [name, data, ...args]);
+};
+
 require('dotenv').config();
 
 const express = require('express');
